@@ -21,6 +21,12 @@ class MonitorViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         try:
+            # instance = serializer.validated_data
+
+            # Ensure hour is within the specified range (12 to 24)
+            # if instance['hour'] < 12 or instance['hour'] > 24:
+            #     raise ValidationError("Hour must be between 12 and 24.")
+            
             with transaction.atomic():
 
                 instance = serializer.save()
