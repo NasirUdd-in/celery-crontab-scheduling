@@ -71,11 +71,15 @@ class MonitorViewSet(viewsets.ModelViewSet):
                 task_name = f"Monitor: {instance.endpoint}"
                 task = PeriodicTask.objects.filter(name=task_name).first()
                 if task:
-                    schedule, _ = IntervalSchedule.objects.get_or_create(
-                        every=instance.interval,
-                        period=IntervalSchedule.SECONDS,
+                    schedule, _ = CrontabSchedule.objects.get_or_create(
+                        hour=instance.hour,
+                        minute=instance.minute,
+                        day_of_week='*',
+                        day_of_month='*',
+                        month_of_year='*',
+                        timezone=zoneinfo.ZoneInfo('Asia/Dhaka')
                     )
-                    task.interval = schedule
+                    task.crontab = schedule
                     task.save()
         except Exception as e:
             raise APIException(str(e))

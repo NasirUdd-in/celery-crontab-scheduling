@@ -21,6 +21,6 @@ def task_monitor(self, monitor_id):
             response_status=response.status_code,
             monitor=monitor,
         )
-        print("best", response.status_code)
+        print(response.status_code)
     except Exception as e:
         print(str(e), type(e))
