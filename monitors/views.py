@@ -11,7 +11,7 @@ from monitors.serializers import MonitorRequestSerializer, MonitorSerializer
 
 import zoneinfo
 
-
+# from rest_framework.exceptions import ValidationError
 
 
 class MonitorViewSet(viewsets.ModelViewSet):
@@ -24,6 +24,9 @@ class MonitorViewSet(viewsets.ModelViewSet):
             with transaction.atomic():
 
                 instance = serializer.save()
+                # if instance.hour < 12 or instance.hour > 24:
+                #     raise ValidationError("Hour must be between 12 and 24.")
+                
                 schedule, _ = CrontabSchedule.objects.get_or_create(
                     hour=instance.hour,
                     minute=instance.minute,
