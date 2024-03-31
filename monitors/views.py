@@ -7,7 +7,7 @@ from rest_framework import viewsets
 from rest_framework.exceptions import APIException
 
 from monitors.models import Monitor, MonitorRequest
-from monitors.serializers import MonitorRequestSerializer, MonitorSerializer
+from monitors.serializers import MonitorRequestSerializer, MonitorSerializer, PeriodicTaskSerializer
 
 import zoneinfo
 
@@ -89,3 +89,8 @@ class MonitorRequestViewSet(viewsets.ModelViewSet):
 
     serializer_class = MonitorRequestSerializer
     queryset = MonitorRequest.objects.all()
+
+
+class PeriodicTaskCViewSet(viewsets.ModelViewSet):
+    serializer_class = PeriodicTaskSerializer
+    queryset = PeriodicTask.objects.all()

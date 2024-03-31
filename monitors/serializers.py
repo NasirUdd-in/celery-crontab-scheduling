@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from monitors.models import Monitor, MonitorRequest
 
+from django_celery_beat.models import PeriodicTask
 
 class MonitorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,4 +32,12 @@ class MonitorRequestSerializer(serializers.ModelSerializer):
             "response_time",
             "response_status",
             "monitor_endpoint",
+        )
+
+class PeriodicTaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PeriodicTask
+        fields = (
+            "name",
+            "enabled"
         )
